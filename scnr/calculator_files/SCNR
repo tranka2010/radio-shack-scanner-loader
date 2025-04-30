@@ -1,0 +1,152 @@
+%%HP: T(1)A(D)F(.);
+´ ç SCNRDATA
+  ´ SCNRDATA SIZE
+LISTç DROP DROP DUP
+    IF 20 >
+    THEN
+"Sending first 20 entries only!"
+MSGBOX 20 'ENTRIES'
+STO
+    ELSE 'ENTRIES'
+STO
+    END 129 CHR 4
+CHR + 1 CHR + 1 CHR
++ ENTRIES CHR +
+'STARTSTR' STO 4 1
++ 1 + ENTRIES + 255
+SWAP - 1 + CHR
+STARTSTR SWAP +
+'STARTSTR' STO 129
+CHR 4 CHR + 2 CHR +
+1 CHR + 0 CHR + 249
+CHR + 'ENDSTR' STO
+STARTSTR XMIT DROP
+1 SCNRDATA SIZE
+LISTç DROP DROP
+    FOR chnl
+SCNRDATA chnl 1 - 5
+* 1 + GET çSTR DUP
+"." POS DUP
+      IF 0 >
+      THEN 1 SWAP 1
+- SUB "C" SWAP +
+'CHANNEL' STO
+      ELSE DROP "C"
+SWAP + 'CHANNEL'
+STO
+      END SCNRDATA
+chnl 1 - 5 * 2 +
+GET DUP DUP çSTR
+"." POS
+      IF 0 ==
+      THEN DROP
+çSTR ".0000" +
+'FREQ' STO FREQ
+SIZE
+        IF 6 ==
+        THEN "0"
+FREQ + STO
+        END FREQ
+SIZE
+        IF 7 ==
+        THEN "0"
+FREQ + STO
+        END
+      ELSE
+        IF 100 <
+        THEN çSTR
+"0" SWAP + 'FREQ'
+STO
+        ELSE çSTR
+'FREQ' STO
+        END FREQ
+SIZE
+        IF 5 <
+        THEN "0"
+FREQ SWAP + 'FREQ'
+STO
+        END FREQ
+SIZE
+        IF 6 <
+        THEN "0"
+FREQ SWAP + 'FREQ'
+STO
+        END FREQ
+SIZE
+        IF 7 <
+        THEN "0"
+FREQ SWAP + 'FREQ'
+STO
+        END FREQ
+SIZE
+        IF 8 <
+        THEN "0"
+FREQ SWAP + 'FREQ'
+STO
+        END FREQ
+SIZE
+        IF 8 >
+        THEN
+"Invalid Freq: Forcing to 144.3900"
+MSGBOX "144.3900"
+'FREQ' STO
+        END
+      END FREQ "^F"
+SWAP + 'FREQ' STO
+SCNRDATA chnl 1 - 5
+* 3 + GET
+      IF 1 ==
+      THEN "^DS"
+      ELSE "^DR"
+      END 'DLY' STO
+SCNRDATA chnl 1 - 5
+* 4 + GET
+      IF 1 ==
+      THEN "^LS"
+      ELSE "^LR"
+      END 'LO' STO
+SCNRDATA chnl 1 - 5
+* 5 + GET
+      IF 1 ==
+      THEN "^PS^"
+      ELSE "^PR^"
+      END 'PRI' STO
+CHANNEL FREQ + DLY
++ LO + PRI +
+'CURRENTENTRY' STO
+CURRENTENTRY 1 1
+SUB NUM 2
+CURRENTENTRY SIZE
+      FOR idx
+CURRENTENTRY idx
+idx SUB NUM +
+      NEXT 129 CHR
+CURRENTENTRY SIZE 3
++ CHR + 16 CHR + 0
+CHR + 'PROLOGSTR'
+STO CURRENTENTRY
+SIZE + PROLOGSTR
+SIZE 1 - + 16 + 0 +
+NEG 256 MOD CHR
+CURRENTENTRY SWAP +
+'CURRENTENTRY' STO
+PROLOGSTR
+CURRENTENTRY +
+'CURRENTENTRY' STO
+CURRENTENTRY XMIT
+DROP
+    NEXT ENDSTR
+XMIT DROP
+'PROLOGSTR' PURGE
+'ENTRIES' PURGE
+'STARTSTR' PURGE
+'CHANNEL' PURGE
+'FREQ' PURGE
+'CURRENTENTRY'
+PURGE 'STARTSTR'
+PURGE 'ENDSTR'
+PURGE 'PRI' PURGE
+'LO' PURGE 'DLY'
+PURGE
+  ª
+ª

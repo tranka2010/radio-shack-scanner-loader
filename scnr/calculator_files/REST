@@ -1,0 +1,19 @@
+%%HP: T(1)A(D)F(.);
+"RESTORE ALL BANKS?"
+{ { "Yes, restore."
+1 } {
+"No, quit now" 0 }
+} 2 CHOOSE DROP
+IF 1 ==
+THEN BNK0 SCNR BNK1
+SCNR BNK2 SCNR BNK3
+SCNR BNK4 SCNR BNK5
+SCNR BNK6 SCNR BNK7
+SCNR BNK8 SCNR BNK9
+SCNR
+"Scanner memory was restored"
+MSGBOX
+ELSE
+"Scanner restore CANCELED"
+MSGBOX
+END

@@ -1,0 +1,36 @@
+%%HP: T(0)A(D)F(.);
+@
+@ REST  (Full Scanner Memory Bank Restore)
+@ Arguments: None
+@
+@ This script will restore all the frequency banks stored in the HP48
+@ into the scanner.  This is a slow process and will take several minutes.
+@ Also, this will wipe out whatever is currently in the scanner memory
+@ without any further prompt. This assumes that all valid frequency bank files
+@ are present, namely: BNK0, BNK1, ... ,BNK8 and BNK9.
+@
+@ Author: Pepin Torres, P.E. - Waltham, Massachusetts, USA
+@ E-mail: pepin [dot] torres {at} g m a i l (dot) com
+@ Version: 1.0
+@ Date: 02/21/2009
+@ Created using HPUserEdit 5 [http://www.gaak.org/hpuser]
+
+"RESTORE ALL BANKS?"
+{ {"Yes, restore."   1} , { "No, quit now"   0}} 2
+CHOOSE DROP
+IF 1 == THEN
+  BNK0 SCNR
+  BNK1 SCNR
+  BNK2 SCNR
+  BNK3 SCNR
+  BNK4 SCNR
+  BNK5 SCNR
+  BNK6 SCNR
+  BNK7 SCNR
+  BNK8 SCNR
+  BNK9 SCNR
+  "Scanner memory was restored" MSGBOX
+ELSE
+  "Scanner restore CANCELED" MSGBOX
+END
+ 
